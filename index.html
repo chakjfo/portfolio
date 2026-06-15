@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="OJT internship portfolio website for an aspiring developer." />
+  <title>OJT Internship Portfolio</title>
+  <style>
+    :root {
+      --ink: #fff8e8;
+      --muted: #c2b7a4;
+      --paper: #090807;
+      --panel: #15120e;
+      --panel-2: #201812;
+      --accent: #ff9d1f;
+      --accent-2: #ffd84d;
+      --warning: #f04f1a;
+      --line: #4b3826;
+      --strong-line: #ffb12a;
+      --shadow: 0 0 0 1px rgba(255, 177, 42, .24), 0 18px 48px rgba(0, 0, 0, .5);
+      --soft-shadow: 0 18px 40px rgba(0, 0, 0, .28);
+      --radius: 6px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(255, 177, 42, .045) 1px, transparent 1px) 0 0 / 36px 36px,
+        linear-gradient(90deg, rgba(255, 177, 42, .035) 1px, transparent 1px) 0 0 / 36px 36px,
+        radial-gradient(circle at 19% 5%, rgba(255, 216, 77, .28), transparent 26%),
+        radial-gradient(circle at 86% 7%, rgba(240, 79, 26, .22), transparent 28%),
+        radial-gradient(circle at 76% 58%, rgba(255, 157, 31, .12), transparent 32%),
+        linear-gradient(135deg, #050403 0%, #120d09 48%, #24150d 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    svg {
+      max-width: 100%;
+      display: block;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -4rem;
+      z-index: 20;
+      padding: .75rem 1rem;
+      background: var(--accent);
+      color: #031017;
+      border-radius: var(--radius);
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(9, 8, 7, .88);
+      border-bottom: 1px solid rgba(255, 177, 42, .28);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      background: #17120e;
+      border: 1px solid var(--strong-line);
+      border-radius: 50%;
+      box-shadow: 0 0 18px rgba(255, 157, 31, .28);
+      overflow: hidden;
+      transform: rotate(-5deg);
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: inherit;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      padding: .45rem .85rem;
+      border: 2px solid transparent;
+      border-radius: var(--radius);
+      font-weight: 750;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--ink);
+      background: rgba(255, 157, 31, .08);
+      border-color: rgba(255, 177, 42, .42);
+      outline: none;
+    }
+
+    .menu-button {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--strong-line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 0 18px rgba(255, 157, 31, .24);
+      cursor: pointer;
+    }
+
+    .menu-button span {
+      display: block;
+      width: 20px;
+      height: 3px;
+      margin: 4px auto;
+      background: var(--line);
+      border-radius: 999px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      gap: .55rem;
+      padding: .75rem 1rem;
+      border: 1px solid var(--strong-line);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--accent), #78fbff);
+      color: #031017;
+      box-shadow: 0 0 22px rgba(255, 157, 31, .32);
+      font-weight: 900;
+      line-height: 1;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 12px rgba(255, 157, 31, .28);
+      outline: none;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .button.blue {
+      background: linear-gradient(135deg, #111b24, #1b2b37);
+      color: var(--ink);
+    }
+
+    .hero {
+      min-height: calc(100vh - 74px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
+      align-items: center;
+      gap: clamp(2rem, 6vw, 5rem);
+      padding: clamp(3rem, 7vw, 6rem) 0 3rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      margin: 0 0 1rem;
+      padding: .3rem .65rem;
+      border: 1px solid rgba(255, 177, 42, .45);
+      border-radius: 999px;
+      background: rgba(255, 157, 31, .08);
+      font-size: .86rem;
+      font-weight: 850;
+      color: var(--ink);
+      box-shadow: inset 0 0 16px rgba(255, 157, 31, .08);
+    }
+
+    .hero h1 {
+      max-width: 780px;
+      margin: 0;
+      font-size: clamp(2.8rem, 7vw, 6.4rem);
+      line-height: .92;
+      letter-spacing: 0;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+      text-shadow: 0 0 24px rgba(255, 157, 31, .45);
+    }
+
+    .hero-copy {
+      max-width: 640px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .8rem;
+      margin-top: 1.7rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .85rem;
+      margin: 0 0 1rem;
+      max-width: 620px;
+    }
+
+    .hero-art .hero-stats {
+      width: min(430px, 100%);
+      position: relative;
+      z-index: 3;
+    }
+
+    .stat {
+      min-height: 96px;
+      padding: .85rem;
+      border: 1px solid rgba(255, 177, 42, .3);
+      border-radius: var(--radius);
+      background: rgba(21, 18, 14, .82);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.55rem;
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: .35rem;
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .hero-art {
+      position: relative;
+      isolation: isolate;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .portrait-card {
+      width: min(430px, 100%);
+      padding: 1rem;
+      border: 1px solid rgba(255, 177, 42, .38);
+      border-radius: var(--radius);
+      background: rgba(21, 18, 14, .9);
+      box-shadow: var(--shadow);
+    }
+
+    .portrait-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: center;
+      border: 1px solid rgba(255, 177, 42, .5);
+      border-radius: var(--radius);
+      filter: saturate(1.08) contrast(1.05);
+    }
+
+    .sticker {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .5rem .7rem;
+      border: 1px solid rgba(255, 177, 42, .42);
+      border-radius: var(--radius);
+      background: rgba(21, 18, 14, .92);
+      box-shadow: 0 0 18px rgba(255, 157, 31, .18);
+      font-size: .9rem;
+      font-weight: 900;
+      z-index: 2;
+    }
+
+    .sticker.one {
+      top: 15%;
+      left: 2%;
+      background: rgba(255, 157, 31, .08);
+      transform: rotate(-7deg);
+    }
+
+    .sticker.two {
+      right: 0;
+      bottom: 16%;
+      background: rgba(255, 216, 77, .08);
+      transform: rotate(5deg);
+    }
+
+    .sticker.three {
+      left: 12%;
+      bottom: 5%;
+      background: rgba(247, 212, 90, .1);
+      transform: rotate(-3deg);
+    }
+
+    section {
+      padding: clamp(3.5rem, 8vw, 6rem) 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-head h2 {
+      max-width: 660px;
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.7rem);
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      max-width: 420px;
+      margin: .7rem 0 0;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+
+    .note-card,
+    .service-card,
+    .project-card,
+    .timeline-item,
+    .contact-box {
+      border: 1px solid rgba(255, 177, 42, .28);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(21, 18, 14, .96), rgba(9, 8, 7, .96));
+      box-shadow: var(--shadow);
+    }
+
+    .note-card {
+      padding: 1.4rem;
+      background: linear-gradient(180deg, rgba(21, 18, 14, .96), rgba(9, 8, 7, .96));
+    }
+
+    .note-card h3,
+    .service-card h3,
+    .project-card h3,
+    .timeline-item h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      line-height: 1.2;
+    }
+
+    .note-card p,
+    .service-card p,
+    .project-card p,
+    .timeline-item p {
+      margin: .7rem 0 0;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .skill-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin-top: 1.2rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: .35rem .7rem;
+      border: 1px solid rgba(255, 177, 42, .34);
+      border-radius: 999px;
+      background: rgba(255, 157, 31, .07);
+      font-weight: 850;
+      color: var(--ink);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .service-card {
+      min-height: 230px;
+      padding: 1.2rem;
+    }
+
+    .service-card:nth-child(1) {
+      background: linear-gradient(180deg, rgba(21, 18, 14, .96), rgba(9, 8, 7, .96));
+    }
+
+    .service-card:nth-child(2) {
+      background: linear-gradient(180deg, rgba(21, 18, 14, .96), rgba(9, 8, 7, .96));
+    }
+
+    .service-card:nth-child(3) {
+      background: linear-gradient(180deg, rgba(21, 18, 14, .96), rgba(9, 8, 7, .96));
+    }
+
+    .service-card:nth-child(4) {
+      background: linear-gradient(180deg, rgba(21, 18, 14, .96), rgba(9, 8, 7, .96));
+    }
+
+    .service-card:nth-child(5) {
+      background: linear-gradient(180deg, rgba(21, 18, 14, .96), rgba(9, 8, 7, .96));
+    }
+
+    .service-card:nth-child(6) {
+      background: linear-gradient(180deg, rgba(21, 18, 14, .96), rgba(9, 8, 7, .96));
+    }
+
+    .service-icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 1rem;
+      border: 1px solid var(--strong-line);
+      border-radius: var(--radius);
+      background: rgba(255, 157, 31, .08);
+      box-shadow: 0 0 18px rgba(255, 157, 31, .2);
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+    }
+
+    .filter-btn {
+      min-height: 40px;
+      padding: .45rem .8rem;
+      border: 1px solid rgba(255, 177, 42, .34);
+      border-radius: 999px;
+      background: rgba(21, 18, 14, .9);
+      color: var(--ink);
+      font-weight: 850;
+      cursor: pointer;
+      box-shadow: none;
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      color: #031017;
+    }
+
+    .project-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      gap: .6rem;
+      margin: -1rem 0 1rem;
+    }
+
+    .carousel-btn {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 177, 42, .44);
+      border-radius: var(--radius);
+      background: rgba(21, 18, 14, .92);
+      color: var(--accent);
+      font-size: 1.2rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(255, 157, 31, .14);
+    }
+
+    .carousel-btn:hover,
+    .carousel-btn:focus-visible {
+      background: rgba(255, 157, 31, .12);
+      outline: none;
+    }
+
+    .projects-grid {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      padding: .25rem .25rem 1.25rem;
+      scrollbar-color: var(--accent) rgba(255, 255, 255, .08);
+    }
+
+    .project-card {
+      overflow: hidden;
+      flex: 0 0 min(360px, 86vw);
+      scroll-snap-align: start;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .project-card:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 1px rgba(255, 177, 42, .5), 0 22px 54px rgba(0, 0, 0, .56);
+    }
+
+    .project-art {
+      min-height: 180px;
+      border-bottom: 1px solid rgba(255, 177, 42, .22);
+      background: #0e1720;
+    }
+
+    .project-body {
+      padding: 1.1rem;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin-top: 1rem;
+    }
+
+    .mini-tag {
+      padding: .24rem .5rem;
+      border: 1px solid rgba(255, 177, 42, .3);
+      border-radius: 999px;
+      background: rgba(255, 157, 31, .07);
+      font-size: .78rem;
+      font-weight: 850;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 1rem;
+      color: var(--accent);
+      font-weight: 900;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .timeline-item {
+      min-height: 190px;
+      padding: 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .timeline-item::after {
+      content: "";
+      position: absolute;
+      width: 72px;
+      height: 72px;
+      right: -18px;
+      bottom: -18px;
+      border: 1px solid rgba(255, 177, 42, .28);
+      border-radius: 50%;
+      background: rgba(255, 157, 31, .12);
+    }
+
+    .year {
+      display: inline-flex;
+      margin-bottom: .7rem;
+      padding: .2rem .55rem;
+      border: 1px solid rgba(255, 177, 42, .3);
+      border-radius: 999px;
+      background: rgba(255, 157, 31, .07);
+      font-weight: 900;
+    }
+
+    .contact-section {
+      padding-bottom: 4rem;
+    }
+
+    .contact-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 1.5rem;
+      padding: clamp(1.2rem, 4vw, 2rem);
+      background: linear-gradient(180deg, rgba(21, 18, 14, .96), rgba(9, 8, 7, .96));
+    }
+
+    .contact-box h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1;
+    }
+
+    .contact-box p {
+      max-width: 610px;
+      margin: .75rem 0 0;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .footer {
+      padding: 1.5rem 0 2rem;
+      border-top: 1px solid rgba(255, 177, 42, .2);
+      background: rgba(9, 8, 7, .82);
+    }
+
+    .footer .shell {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    .socials {
+      display: flex;
+      gap: .6rem;
+    }
+
+    .socials a {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 177, 42, .3);
+      border-radius: 50%;
+      background: rgba(21, 18, 14, .92);
+      color: var(--ink);
+      box-shadow: 0 0 14px rgba(255, 157, 31, .12);
+      font-weight: 900;
+    }
+
+    @media (max-width: 900px) {
+      .menu-button {
+        display: inline-block;
+      }
+
+      .nav-links {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        top: 84px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: .75rem;
+        border: 1px solid rgba(255, 177, 42, .32);
+        border-radius: var(--radius);
+        background: rgba(9, 8, 7, .96);
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        justify-content: center;
+      }
+
+      .hero,
+      .about-grid,
+      .contact-box {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-art {
+        min-height: 420px;
+      }
+
+      .services-grid,
+      .timeline {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .hero {
+        padding-top: 2.4rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.55rem, 16vw, 4.2rem);
+      }
+
+      .hero-actions,
+      .section-head,
+      .footer .shell {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .hero-stats,
+      .services-grid,
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .sticker {
+        position: static;
+        margin: .5rem;
+      }
+
+      .hero-art {
+        min-height: auto;
+        display: block;
+      }
+
+      .portrait-card {
+        margin-top: 1rem;
+        transform: none;
+      }
+
+      .contact-box .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="shell nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Portfolio home">
+        <span class="brand-mark"><img src="assets/profile.png" alt="Charish Pulido" /></span>
+        <span>Charish Pulido</span>
+      </a>
+      <button class="menu-button" type="button" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Skills</a></li>
+        <li><a href="#work">Projects</a></li>
+        <li><a href="#journey">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="shell hero" id="top">
+      <div>
+        <p class="eyebrow">Open for OJT / Internship</p>
+        <h1>Aspiring developer ready for <span>real-world systems</span>.</h1>
+        <p class="hero-copy">
+          I am a Computer Science student from The University of Mindanao looking for an OJT internship where I can apply my web development skills,
+          learn from industry mentors, and contribute to real projects with discipline and attention to detail.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#work">View Projects</a>
+          <a class="button secondary" href="#contact">Contact Me</a>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-label="Profile photo with warm technology styling">
+        <span class="sticker one">SYSTEMS</span>
+        <span class="sticker two">CODE</span>
+        <span class="sticker three">OJT READY</span>
+        <div class="portrait-card">
+          <img src="assets/profile.png" alt="Portrait photo of the portfolio owner" />
+        </div>
+      </div>
+    </section>
+
+    <section class="shell" id="about">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">About Me</p>
+          <h2>OJT applicant with a strong interest in web systems.</h2>
+        </div>
+        <p>This portfolio is made to show my current skills, school projects, and the tasks I can support during internship.</p>
+      </div>
+      <div class="about-grid">
+        <article class="note-card">
+          <h3>Quick profile</h3>
+          <p>
+            I am a Computer Science student developer who enjoys building websites, simple systems, and clean user interfaces.
+            I can follow instructions, document my work, and improve through feedback from supervisors.
+          </p>
+          <div class="skill-cloud" aria-label="Skills">
+            <span class="pill">HTML</span>
+            <span class="pill">CSS</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">PHP</span>
+            <span class="pill">MySQL</span>
+            <span class="pill">Git</span>
+          </div>
+        </article>
+        <article class="note-card">
+          <h3>Internship goals</h3>
+          <p>
+            I want to gain hands-on experience in software development, improve my coding standards,
+            learn workplace tools, and contribute to useful internal or client-facing projects.
+          </p>
+          <div class="skill-cloud" aria-label="Work qualities">
+            <span class="pill">Responsible</span>
+            <span class="pill">Trainable</span>
+            <span class="pill">Organized</span>
+            <span class="pill">Team Player</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell" id="services">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Skills</p>
+          <h2>Languages, tools, and tasks I can help with.</h2>
+        </div>
+      </div>
+      <div class="services-grid">
+        <article class="service-card">
+          <div class="service-icon">H</div>
+          <h3>HTML & CSS</h3>
+          <p>Semantic pages, responsive layouts, forms, navigation, cards, and clean visual structure.</p>
+        </article>
+        <article class="service-card">
+          <div class="service-icon">J</div>
+          <h3>JavaScript</h3>
+          <p>Basic interactivity, filters, menus, validation, DOM updates, and small front-end features.</p>
+        </article>
+        <article class="service-card">
+          <div class="service-icon">P</div>
+          <h3>PHP & MySQL</h3>
+          <p>Simple CRUD systems, database tables, login forms, admin pages, and server-side page logic.</p>
+        </article>
+        <article class="service-card">
+          <div class="service-icon">G</div>
+          <h3>Git & Deployment</h3>
+          <p>Basic version control, repository updates, file organization, and static deployment preparation.</p>
+        </article>
+        <article class="service-card">
+          <div class="service-icon">U</div>
+          <h3>UI Support</h3>
+          <p>Wireframes, page cleanup, component styling, icon placement, spacing, and mobile checks.</p>
+        </article>
+        <article class="service-card">
+          <div class="service-icon">D</div>
+          <h3>Documentation</h3>
+          <p>Simple user guides, project notes, testing checklists, screenshots, and progress reports.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell" id="work">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Projects</p>
+          <h2>Systems and apps I worked on or helped build.</h2>
+        </div>
+        <div class="filters" aria-label="Project filters">
+          <button class="filter-btn active" type="button" data-filter="all">All</button>
+          <button class="filter-btn" type="button" data-filter="web">Web</button>
+          <button class="filter-btn" type="button" data-filter="system">System</button>
+          <button class="filter-btn" type="button" data-filter="java">Java</button>
+          <button class="filter-btn" type="button" data-filter="ai">AI/Security</button>
+        </div>
+      </div>
+
+      <div class="project-toolbar" aria-label="Project carousel controls">
+        <button class="carousel-btn" type="button" data-scroll="left" aria-label="Scroll projects left">&lt;</button>
+        <button class="carousel-btn" type="button" data-scroll="right" aria-label="Scroll projects right">&gt;</button>
+      </div>
+
+      <div class="projects-grid">
+        <article class="project-card" data-category="system">
+          <div class="project-art">
+            <svg viewBox="0 0 420 220" aria-hidden="true">
+              <rect width="420" height="220" fill="#090807" />
+              <rect x="42" y="40" width="336" height="126" rx="8" fill="#15120e" stroke="#ffb12a" stroke-width="4" />
+              <path d="M78 74h96M78 108h180M78 140h132" stroke="#ff9d1f" stroke-width="7" stroke-linecap="round" />
+              <rect x="274" y="72" width="58" height="58" rx="6" fill="#201812" stroke="#ffd84d" stroke-width="4" />
+              <path d="M130 184h160" stroke="#4b3826" stroke-width="8" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="project-body">
+            <h3>Halcyon</h3>
+            <p>Hotel room booking project for handling room listings, booking flow, and accommodation management features.</p>
+            <div class="project-meta">
+              <span class="mini-tag">Hotel Booking</span>
+              <span class="mini-tag">System</span>
+              <span class="mini-tag">Web App</span>
+            </div>
+            <a class="project-link" href="https://github.com/zincjj/halcyon" target="_blank" rel="noopener">View Repository</a>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="web">
+          <div class="project-art">
+            <svg viewBox="0 0 420 220" aria-hidden="true">
+              <rect width="420" height="220" fill="#090807" />
+              <rect x="78" y="28" width="264" height="164" rx="8" fill="#15120e" stroke="#ffb12a" stroke-width="4" />
+              <circle cx="210" cy="74" r="26" fill="#201812" stroke="#ffd84d" stroke-width="4" />
+              <path d="M132 120h156M132 152h156" stroke="#ff9d1f" stroke-width="8" stroke-linecap="round" />
+              <path d="M159 182h102" stroke="#4b3826" stroke-width="8" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="project-body">
+            <h3>Login & Sign Up Form</h3>
+            <p>Functional authentication practice project with login and sign-up workflows for a lab exam.</p>
+            <div class="project-meta">
+              <span class="mini-tag">Auth</span>
+              <span class="mini-tag">Forms</span>
+              <span class="mini-tag">Web</span>
+            </div>
+            <a class="project-link" href="https://github.com/chakjfo/Pulido_Charish_LabExam" target="_blank" rel="noopener">View Repository</a>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="system">
+          <div class="project-art">
+            <svg viewBox="0 0 420 220" aria-hidden="true">
+              <rect width="420" height="220" fill="#090807" />
+              <path d="M70 170V76l140-48 140 48v94" fill="#15120e" stroke="#ffb12a" stroke-width="4" />
+              <rect x="108" y="104" width="66" height="66" fill="#201812" stroke="#ffd84d" stroke-width="4" />
+              <rect x="246" y="104" width="66" height="66" fill="#201812" stroke="#ffd84d" stroke-width="4" />
+              <path d="M70 190h280" stroke="#ff9d1f" stroke-width="7" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="project-body">
+            <h3>Barangay Profiling</h3>
+            <p>User and admin profiling system for barangay records, resident data, and management workflows.</p>
+            <div class="project-meta">
+              <span class="mini-tag">Admin</span>
+              <span class="mini-tag">User</span>
+              <span class="mini-tag">Profiling</span>
+            </div>
+            <a class="project-link" href="https://github.com/chakjfo/barangay" target="_blank" rel="noopener">View Repository</a>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="system">
+          <div class="project-art">
+            <svg viewBox="0 0 420 220" aria-hidden="true">
+              <rect width="420" height="220" fill="#090807" />
+              <rect x="62" y="62" width="296" height="116" rx="8" fill="#15120e" stroke="#ffb12a" stroke-width="4" />
+              <path d="M96 178V98h54v80M184 178V86h54v92M272 178v-64h54v64" fill="#201812" stroke="#ffd84d" stroke-width="4" />
+              <path d="M88 44h244" stroke="#ff9d1f" stroke-width="7" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="project-body">
+            <h3>Apartment Management System</h3>
+            <p>Apartment management project for rent tracking, utilities, tenant records, and rental operations.</p>
+            <div class="project-meta">
+              <span class="mini-tag">Rent</span>
+              <span class="mini-tag">Utilities</span>
+              <span class="mini-tag">System</span>
+            </div>
+            <a class="project-link" href="https://github.com/chakjfo/AptManagementSystem" target="_blank" rel="noopener">View Repository</a>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="java">
+          <div class="project-art">
+            <svg viewBox="0 0 420 220" aria-hidden="true">
+              <rect width="420" height="220" fill="#090807" />
+              <rect x="74" y="46" width="272" height="128" rx="8" fill="#15120e" stroke="#ffb12a" stroke-width="4" />
+              <path d="M112 90h36l18 22 42-46 42 72 20-32h38" fill="none" stroke="#ffd84d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M116 184h188" stroke="#ff9d1f" stroke-width="7" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="project-body">
+            <h3>ToDoManage</h3>
+            <p>JavaFX task manager for organizing tasks, tracking work items, and practicing desktop UI development.</p>
+            <div class="project-meta">
+              <span class="mini-tag">JavaFX</span>
+              <span class="mini-tag">Task Manager</span>
+              <span class="mini-tag">Desktop</span>
+            </div>
+            <a class="project-link" href="https://github.com/chakjfo/ToDoManage" target="_blank" rel="noopener">View Repository</a>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="java">
+          <div class="project-art">
+            <svg viewBox="0 0 420 220" aria-hidden="true">
+              <rect width="420" height="220" fill="#090807" />
+              <path d="M82 130l34-48h156l44 48h28v42H76v-42h6z" fill="#15120e" stroke="#ffb12a" stroke-width="4" />
+              <circle cx="132" cy="174" r="20" fill="#201812" stroke="#ffd84d" stroke-width="5" />
+              <circle cx="292" cy="174" r="20" fill="#201812" stroke="#ffd84d" stroke-width="5" />
+              <path d="M142 82h102M108 54h204" stroke="#ff9d1f" stroke-width="7" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="project-body">
+            <h3>Car Dealership</h3>
+            <p>Java inventory project for managing car dealership records, vehicles, and basic inventory operations.</p>
+            <div class="project-meta">
+              <span class="mini-tag">Java</span>
+              <span class="mini-tag">Inventory</span>
+              <span class="mini-tag">Desktop</span>
+            </div>
+            <a class="project-link" href="https://github.com/chakjfo/CarDealership" target="_blank" rel="noopener">View Repository</a>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="ai">
+          <div class="project-art">
+            <svg viewBox="0 0 420 220" aria-hidden="true">
+              <rect width="420" height="220" fill="#090807" />
+              <path d="M88 58h244v104H88z" fill="#15120e" stroke="#ffb12a" stroke-width="4" />
+              <path d="M124 92h88M124 126h68M248 88l48 48M296 88l-48 48" stroke="#ff9d1f" stroke-width="8" stroke-linecap="round" />
+              <path d="M106 182h208" stroke="#ffd84d" stroke-width="7" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="project-body">
+            <h3>SQL Injection Detector</h3>
+            <p>Security-focused project for detecting SQL injection patterns and suspicious input behavior.</p>
+            <div class="project-meta">
+              <span class="mini-tag">Security</span>
+              <span class="mini-tag">SQLi</span>
+              <span class="mini-tag">Detector</span>
+            </div>
+            <a class="project-link" href="https://github.com/chakjfo/sql-i" target="_blank" rel="noopener">View Repository</a>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="ai">
+          <div class="project-art">
+            <svg viewBox="0 0 420 220" aria-hidden="true">
+              <rect width="420" height="220" fill="#090807" />
+              <rect x="102" y="42" width="216" height="136" rx="12" fill="#15120e" stroke="#ffb12a" stroke-width="4" />
+              <circle cx="168" cy="110" r="34" fill="#201812" stroke="#ffd84d" stroke-width="5" />
+              <path d="M232 82h44M232 110h60M232 138h38" stroke="#ff9d1f" stroke-width="7" stroke-linecap="round" />
+              <path d="M154 110l12 12 22-30" fill="none" stroke="#ffd84d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="project-body">
+            <h3>TikTok AI Content Detector</h3>
+            <p>Detector project for checking whether TikTok content appears AI-generated or human-made.</p>
+            <div class="project-meta">
+              <span class="mini-tag">AI</span>
+              <span class="mini-tag">Detection</span>
+              <span class="mini-tag">Content</span>
+            </div>
+            <a class="project-link" href="https://github.com/chakjfo/tiktok-detector" target="_blank" rel="noopener">View Repository</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell" id="journey">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Education</p>
+          <h2>Student background and internship readiness.</h2>
+        </div>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item">
+          <span class="year">School</span>
+          <h3>Computer Science Student</h3>
+          <p>Studying at The University of Mindanao, with focus on programming, web development, database concepts, and system analysis for practical use.</p>
+        </article>
+        <article class="timeline-item">
+          <span class="year">Practice</span>
+          <h3>Hands-on project building</h3>
+          <p>Creating small websites and system prototypes to improve layout, logic, database, and debugging skills.</p>
+        </article>
+        <article class="timeline-item">
+          <span class="year">Now</span>
+          <h3>Ready for OJT training</h3>
+          <p>Prepared to assist with coding tasks, documentation, testing, data entry, support work, and team projects.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell contact-section" id="contact">
+      <div class="contact-box">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2>Available for OJT internship opportunities.</h2>
+          <p>
+            Email: c.pulido.544201@umindanao.edu.ph<br />
+            Contact Number: 09129642626<br />
+            Course: Computer Science<br />
+            School: The University of Mindanao
+          </p>
+        </div>
+        <a class="button blue" href="mailto:c.pulido.544201@umindanao.edu.ph">Email Me</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <p>&copy; <span id="year"></span> Charish Pulido. OJT Internship Portfolio.</p>
+      <div class="socials" aria-label="Social links">
+        <a href="#" aria-label="GitHub">G</a>
+        <a href="#" aria-label="LinkedIn">L</a>
+        <a href="#" aria-label="Facebook">F</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector(".menu-button");
+    const navLinks = document.querySelector(".nav-links");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const projects = document.querySelectorAll(".project-card");
+    const projectRail = document.querySelector(".projects-grid");
+    const carouselButtons = document.querySelectorAll(".carousel-btn");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+
+        filterButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+
+        projects.forEach((project) => {
+          const shouldShow = filter === "all" || project.dataset.category === filter;
+          project.hidden = !shouldShow;
+        });
+
+        projectRail.scrollTo({ left: 0, behavior: "smooth" });
+      });
+    });
+
+    carouselButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const direction = button.dataset.scroll === "left" ? -1 : 1;
+        const amount = Math.min(projectRail.clientWidth * 0.9, 420);
+        projectRail.scrollBy({ left: amount * direction, behavior: "smooth" });
+      });
+    });
+  </script>
+</body>
+</html>
